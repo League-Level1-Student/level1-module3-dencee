@@ -32,6 +32,7 @@ public class CowTimer {
 		 * 2. Count down the minutes, print the current minute then sleep for 60 seconds
 		 * using Thread.sleep(int milliseconds).
 		 */
+
 		while( this.minutes > 0 ) {
 			System.out.println( "minutes left: " + this.minutes );
 			Thread.sleep(1000);	
@@ -44,9 +45,8 @@ public class CowTimer {
 		 * from freesound.org, then drag it intothe default package.
 		 */
 		playSound("moo.wav");
-		//playSound("creepy-noise.wav");
+		Thread.sleep(5000);	
 		//speak("moo.wav");
-
 	}
 
 	private void playSound(String fileName) {

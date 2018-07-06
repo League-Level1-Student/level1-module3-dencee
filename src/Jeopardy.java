@@ -45,36 +45,47 @@ public class Jeopardy implements ActionListener {
 		frame.setLayout(new BorderLayout());
 		
 		// 1. Make the frame show up
+		frame.setVisible(true);
 
 		// 2. Give your frame a title
+		frame.setTitle("DMC's Frame");
 		
 		// 3. Create a JPanel variable to hold the header using the createHeader method
+		JPanel jButtonHeader = createHeader("Category 1");
+		JPanel jButtonHeader2 = createHeader("Category 2");
 		
 		// 4. Add the header component to the quizPanel
+		quizPanel.add(jButtonHeader);
 		
 		// 5. Add the quizPanel to the frame
-
+		frame.getContentPane().add(quizPanel);
 		
-		// 6. Use the createButton method to set the value of firstButton 
+		// 6. Use the createButton method to set the value of firstButton
+		firstButton = createButton("$$ button 1");
 	
-	// 7. Add the firstButton to the quizPanel
+		// 7. Add the firstButton to the quizPanel
+		quizPanel.add(firstButton);
 		
 		// 8. Write the code inside the createButton() method below. Check that your game looks like Figure 1 in the Jeopardy Handout - http://bit.ly/1bvnvd4.
 		
 		// 9. Use the secondButton variable to hold a button using the createButton method
+		secondButton = createButton("button 2");
 		
 		// 10. Add the secondButton to the quizPanel
+		quizPanel.add(secondButton);
 		
 		// 11. Add action listeners to the buttons (2 lines of code)
-	
+		firstButton.addActionListener(this);
+		secondButton.addActionListener(this);
 
 		// 12. Fill in the actionPerformed() method below
-				
+		
 		frame.pack();
 		quizPanel.setLayout(new GridLayout(buttonCount+1, 3));
 		frame.add(makeScorePanel(), BorderLayout.NORTH);
 		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize().height, Toolkit.getDefaultToolkit().getScreenSize().width);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 
 	/*
@@ -87,14 +98,16 @@ public class Jeopardy implements ActionListener {
 	
 	private JButton createButton(String dollarAmount) {
 		// Create a new JButton
+		JButton jb = new JButton();
 		
 		// Set the text of the button to the dollarAmount
+		jb.setText(dollarAmount);
 		
 		// Increment the buttonCount (this should make the layout vertical)
-	
-		// Return your new button instead of the temporary button
+		buttonCount++;
 		
-		return new JButton("temporary button");
+		// Return your new button instead of the temporary button
+		return jb;
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -105,43 +118,50 @@ public class Jeopardy implements ActionListener {
 
 		JButton buttonPressed = (JButton) arg0.getSource();
 		// If the buttonPressed was the firstButton
-		
+		if( buttonPressed == firstButton ) {
 			// Call the askQuestion() method
 			
 			// Fill in the askQuestion() method. When you play the game, the score should change.
-		
-		// Or if the buttonPressed was the secondButton
-
-
-			// Call the askQuestion() method with a harder question
-			
+			askQuestion("today's date?", "Friday", 200);
+			firstButton.setText("");
+		} else if( buttonPressed == secondButton ) {
+			// Call the askQuestion() method with a harder question.
+			askQuestion("hard question", "hard", 2000);
+			secondButton.setText("");
+		}
 		
 		// Clear the button text (set the button text to nothing)
-		
 	}
 
 	private void askQuestion(String question, String correctAnswer, int prizeMoney) {
-		// Remove this temporary message
-		JOptionPane.showMessageDialog(null, "this is where the question will be asked");
+//		JOptionPane.showMessageDialog(null, question);
 		// Use a pop up to ask the user the question
-	
+		String userAnswer = JOptionPane.showInputDialog(question);
+		
 		// If the answer is correct
+		if( userAnswer.equals(correctAnswer) ) {
 		
 			// Increase the score by the prizeMoney
+			score += prizeMoney;
 			
 			// Call the updateScore() method
+			updateScore();
 			
 			// Pop up a message to tell the user they were correct
+			System.out.println("You were correct!!!");
 			
 		// Otherwise
+		} else {
 		
 			// Decrement the score by the prizeMoney
+			score -= prizeMoney;
+
+			// Call the updateScore() method
+			updateScore();
 			
 			// Pop up a message to tell the user the correct answer
-			
-			// Call the updateScore() method
-			
-		
+			System.out.println("The correct answer is: " + correctAnswer);
+		}
 	}
 
 

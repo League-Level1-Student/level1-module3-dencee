@@ -60,12 +60,20 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
 		 * If the mouse co-ordinates and secret location are close, we'll let them ask a
 		 * question.
 		 */
-		if (areClose(mouseX, secretLocationX) && areClose(mouseY, secretLocationY)) {
+		if (areClose(mouseX, secretLocationX, 15) && areClose(mouseY, secretLocationY, 15)) {
+			AudioClip sound;
+			
 			// 8. Get the user to enter a question for the fortune teller
-			System.out.println("You're close!!!");
+			if (areClose(mouseX, secretLocationX, 5) && areClose(mouseY, secretLocationY, 5)) {
+				System.out.println("You got it!");
 
-			// 9. Find a spooky sound and put it in your default package (freesound.org)
-			AudioClip sound = JApplet.newAudioClip(getClass().getResource("creepy-noise.wav"));
+				sound = JApplet.newAudioClip(getClass().getResource("moo.wav"));
+			} else {
+				System.out.println("You're close!!!");
+
+				// 9. Find a spooky sound and put it in your default package (freesound.org)
+				sound = JApplet.newAudioClip(getClass().getResource("creepy-noise.wav"));
+			}
 			
 			// 10. Play the sound
 			sound.play();
@@ -79,8 +87,8 @@ public class FortuneTeller extends JPanel implements Runnable, MouseListener {
 
 	}
 
-	private boolean areClose(int mouseX, int secretLocationX) {
-		return mouseX < secretLocationX + 15 && mouseX > secretLocationX - 15;
+	private boolean areClose(int mouseX, int secretLocationX, int tolerance) {
+		return( (mouseX < (secretLocationX + tolerance)) && (mouseX > (secretLocationX - tolerance)) );
 	}
 
 	private void pause(int seconds) {
