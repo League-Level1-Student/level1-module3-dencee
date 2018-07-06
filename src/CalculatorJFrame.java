@@ -21,7 +21,6 @@ public class CalculatorJFrame implements ActionListener {
 	JTextField number1 = new JTextField(20);
 	JTextField number2 = new JTextField(20);
 	JLabel myLabel = new JLabel(" ");
-	GridBagLayout grid = new GridBagLayout();
 	
 	public static void main(String[] args) {
 		new CalculatorJFrame().showCalculator();
@@ -33,7 +32,7 @@ public class CalculatorJFrame implements ActionListener {
 		this.myFrame.setSize(500, 500);
 		this.myFrame.setVisible(true);
 		this.myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.myPanel.setLayout(grid);
+		this.myPanel.setLayout(new GridBagLayout());
 		
 		// Set constraints
 		GridBagConstraints constraints = new GridBagConstraints();
