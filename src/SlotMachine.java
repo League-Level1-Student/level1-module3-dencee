@@ -7,12 +7,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SlotMachine implements ActionListener {
 	String cherry = "Cherry.png";
 	String bar = "bar.png";
 	String orange = "Orange.png";
+	int score = 0;
 	
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
@@ -64,15 +66,23 @@ public class SlotMachine implements ActionListener {
 		spin.setText("SPIN");
 		spin.addActionListener(this);
 		
-		panel.add(getRandomImage());
-		panel.add(getRandomImage());
-		panel.add(getRandomImage());
+		int randImage1 = new Random().nextInt(3);
+		panel.add(getRandomImage(randImage1));
+		int randImage2 = new Random().nextInt(3);
+		panel.add(getRandomImage(randImage2));
+		int randImage3 = new Random().nextInt(3);
+		panel.add(getRandomImage(randImage3));
 		frame.pack();
+		
+		if( (randImage1 == randImage2) && (randImage1 == randImage3) ) {
+			score++;
+			JOptionPane.showMessageDialog(null, "you won!\nScore = " + score);
+		}
+		
 	}
 	
-	JLabel getRandomImage() {
+	JLabel getRandomImage(int randImage) {
 		ImageIcon image = new ImageIcon();
-		int randImage = new Random().nextInt(3);
 		
 		if( randImage == 0 ) {
 			image = new ImageIcon(getClass().getResource(bar));
